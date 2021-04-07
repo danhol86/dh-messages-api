@@ -14,7 +14,7 @@ const messages  = new MessagesClient();
         mkdirSync("data");
     }
 
-    // run this first to setup new client and get QR code.
+    // run this first to setup new client and get QR code. once scanned, all events after should be emitted including conversation list and messages etc.
     await New();
 
     //run this after initial setup has already been complete to use session data from New function

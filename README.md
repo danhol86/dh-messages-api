@@ -54,6 +54,6 @@ This repo contains test.ts file which uses all methods and events.
 | Method        | Definition                                                                          |
 | ------------- |-------------------------------------------------------------------------------------|
 | Setup         | when reconnecting using existing session data (tokens/encryption from Connect stage)|
-| Close         | xloses http connection                                                              |
+| Close         | closes http connection                                                              |
 | Connect       | new connection, will trigger qrcode event on success                                |
 | DownloadFile  | message will contain id of image/attachment to download                             |   

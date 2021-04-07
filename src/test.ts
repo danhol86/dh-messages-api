@@ -1,6 +1,6 @@
 import { MessagesClient } from "./messages";
 import * as QRCode from 'qrcode';
-import { writeFileSync, readFileSync } from 'fs';
+import { writeFileSync, readFileSync, existsSync, mkdirSync } from 'fs';
 import { MessagesManager } from './manager';
 import * as API from './api';
 import { getData } from 'rawproto';
@@ -8,8 +8,16 @@ import { getData } from 'rawproto';
 const messages  = new MessagesClient();
 
 (async () => {
-    //await New();
-    await Existing();
+
+    if (!existsSync("data")){
+        mkdirSync("data");
+    }
+
+    // run this first to setup new client and get QR code.
+    await New();
+
+    //run this after initial setup has already been complete
+    //await Existing();
 })();
 
 

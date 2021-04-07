@@ -21,7 +21,10 @@ git clone https://github.com/danhol86/dh-messages-api
 cd dh-messages-api
 npm install
 ```
-You will need to install node v15 as uses Subtle from webcrypto.
+You will need to ensure you have have node v15 as uses Subtle from webcrypto.
+
+This repo contains test.ts file which uses all methods and events. To run this simply call npm run start.
+
 ## Events and functions
 
 | Event         | Definition                                                                          |

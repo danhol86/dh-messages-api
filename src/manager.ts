@@ -1,3 +1,5 @@
+//useful code in managing the responses from API. Such as filtering out existing messages, and downloading images where required
+
 export class MessagesManager {
 
     static SetupMsgData(msgData, messagesFound) {

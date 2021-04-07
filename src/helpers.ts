@@ -1,3 +1,5 @@
+//functions such as encrpypting and read proto etc. 
+
 const { subtle } = require('crypto').webcrypto;
 const Blob = require('cross-blob');
 import * as crypto from 'crypto';

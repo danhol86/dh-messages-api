@@ -1,3 +1,5 @@
+//all json objects used by protobuf. not sure on how numbers generated e.g. 2021 im assuming year, but doesnt seem to affect the calls.
+
 export class JsonFunctions {
 
     static dateObj = [null,null,2021,2,15,null,4,null,6];

@@ -1,3 +1,5 @@
+//all http calls made by the api. refactor required 
+
 import * as https from 'https';
 import * as zlib  from 'zlib';
 

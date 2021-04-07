@@ -24,10 +24,9 @@ npm install
 You will need to install node v15 as uses Subtle from webcrypto.
 ## Events and functions
 
-Clone the repo and install the dependencies:
 | Event         | Definition                                                                          |
 | ------------- |-------------------------------------------------------------------------------------|
-| error         |                                                                                     |
+| error         | any error either thrown by http client of api                                       |
 | qrcode        | on setting up new connection. called with qr code url                               |
 | sessiondata   | anytime session tokens are updated on new setup or refreshing of token              |
 | closed        | when http request is closed. google closes usually every 15 minutes                 |   
@@ -36,3 +35,10 @@ Clone the repo and install the dependencies:
 | debug         | any debug message                                                                   |
 | messageupdate | these are status messages such as 'sending....'                                     |
 | convlist      | all messages for a particular conversation id                                       |
+
+| Method        | Definition                                                                          |
+| ------------- |-------------------------------------------------------------------------------------|
+| Setup         | when have session data (tokens/encryption keys from Connect stage)                  |
+| Close         | xloses http connection                                                              |
+| Connect       | new connection, will trigger qrcode event on success                                |
+| DownloadFile  | message will contain id of image/attachment to download                             |   

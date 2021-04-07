@@ -1,7 +1,6 @@
 import { getData } from 'rawproto';
 import * as API from './api';
 import * as cheerio from 'cheerio';
-import * as crypto from 'crypto';
 const { subtle } = require('crypto').webcrypto;
 import { HttpFunctions } from './https';
 import { JsonFunctions } from './json';

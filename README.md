@@ -22,6 +22,8 @@ cd dh-messages-api
 npm install
 ```
 You will need to ensure you have have node v15 as uses Subtle from webcrypto.
+
+Project is built using Typescript, however due to size of googles js file, this is copied seprately at the end to build folder 
 ## Testing
 
 This repo contains test.ts file which uses all methods and events. 

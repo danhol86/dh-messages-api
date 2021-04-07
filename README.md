@@ -24,12 +24,18 @@ npm install
 You will need to ensure you have have node v15 as uses Subtle from webcrypto.
 
 This repo contains test.ts file which uses all methods and events. 
-⋅⋅* To run this simply call npm run start. 
-⋅⋅* This will call Connect method which returns QR code.
-⋅⋅* This test will generate a new image file in the source folder called - myqrcode.png
-⋅⋅* Open and scan image using messages app
-⋅⋅* All events should fire and show in debug
-⋅⋅* Any required data is stored to Data folder. This includes sessiondata, which is needed for connecting using tokens and encryption keys, and all message ids to track new messages
+* To run this simply call npm run start. 
+
+* This will call Connect method which returns QR code.
+
+* This test will generate a new image file in the source folder called - myqrcode.png
+
+* Open and scan image using messages app
+
+* All events should fire and show in debug
+
+* Any required data is stored to Data folder. This includes sessiondata, which is needed for connecting using tokens and encryption keys, and all message ids to track new messages
+
 
 ## Events and functions
 

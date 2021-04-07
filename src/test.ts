@@ -9,6 +9,7 @@ const messages  = new MessagesClient();
 
 (async () => {
 
+    //create data folder to store session data and message ids for each conversation.
     if (!existsSync("data")){
         mkdirSync("data");
     }
@@ -16,7 +17,7 @@ const messages  = new MessagesClient();
     // run this first to setup new client and get QR code.
     await New();
 
-    //run this after initial setup has already been complete
+    //run this after initial setup has already been complete to use session data from New function
     //await Existing();
 })();
 

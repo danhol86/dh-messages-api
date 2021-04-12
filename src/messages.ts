@@ -207,6 +207,7 @@ export class MessagesClient extends TypedEmitter<MessagesClientEvents> {
                 await b.destroy();
             } catch{}
         }
+        HttpFunctions.AllReqs = [];
     }
 
     private async TriggerSendMessage(tempid, convId, senderId, text) {

@@ -21,9 +21,10 @@ export class HttpFunctions {
                     'Upgrade-Insecure-Requests': "1"
                 },
                 }
-                
+                let body = '';
+
                 const req = https.request(options, (res) => {
-                var body = '';
+                
                 res.on('data', (d) => {  
                     body += d;
                 });
@@ -33,6 +34,7 @@ export class HttpFunctions {
                 this.AllReqs.push(req);
                 
                 req.on('error', (error) => {
+                    body = '';
                     reject(error);
                 })
 
@@ -66,7 +68,7 @@ export class HttpFunctions {
                 }
                 
                 const req = https.request(options, (res) => {
-                var buffer; buffer = [];
+                let buffer; buffer = [];
                 res.on('data', (d) => {  
                     buffer.push(d);
                 });
@@ -112,7 +114,7 @@ export class HttpFunctions {
                 },
                 }
                 
-                var buffer; buffer = [];
+                let buffer; buffer = [];
 
                 const req = https.request(options, (res) => {
 
@@ -122,17 +124,21 @@ export class HttpFunctions {
                     gunzip.on('data', function(data) {
                         buffer.push(data);
                     }).on("error", function(e) {
+                        buffer = null;
                         reject(e);
                     });
 
                     gunzip.on('end', () => {
-                        resolve(Buffer.concat(buffer));
+                        let dres = Buffer.concat(buffer);
+                        buffer = null;
+                        resolve(dres);
                     });
                 })
                 
                 this.AllReqs.push(req);
 
                 req.on('error', (error) => {
+                    buffer = null;
                     reject(error);
                 })
 
@@ -170,21 +176,25 @@ export class HttpFunctions {
                     "content-type" : "application/x-protobuf"
                 },
                 }
+
+                let buffers;
+                buffers = [];
                 
                 const req = https.request(options, (res) => {
-                var buffers;
-                buffers = [];
-                res.on('data', (d) => {  
-                    buffers.push(d);
-                });
-                res.on('end', () => {
-                    resolve(Buffer.concat(buffers));
-                });
+                    res.on('data', (d) => {  
+                        buffers.push(d);
+                    });
+                    res.on('end', () => {
+                        let dres = Buffer.concat(buffers);
+                        buffers = null;
+                        resolve(dres);
+                    });
                 })
                 
                 this.AllReqs.push(req);
 
                 req.on('error', (error) => {
+                    buffers = null;
                     reject(error);
                 })
 
@@ -260,7 +270,7 @@ export class HttpFunctions {
                 },
                 }
                 
-                var buffer; buffer = [];
+                let buffer; buffer = [];
 
                 const req = https.request(options, (res) => {
 
@@ -276,12 +286,15 @@ export class HttpFunctions {
                             var resp = await callback(corrresp);
                             if(resp == true) {
                                 req.destroy();
+                                buffer = null;
                                 resolve(corrresp);
                             };
                         }                        
                     }).on('end', () => {
+                        buffer = null;
                         reject("Ended connection");
                     }).on("error", function(e) {
+                        buffer = null;
                         reject(e);
                     });
                 })
@@ -289,6 +302,7 @@ export class HttpFunctions {
                 this.AllReqs.push(req);
 
                 req.on('error', (error) => {
+                    buffer = null;
                     reject(error);
                 })
 
@@ -327,7 +341,7 @@ export class HttpFunctions {
                 },
             }
                 
-            var buffer; buffer = [];
+            let buffer; buffer = [];
 
             const req = https.request(options, (res) => {
 
@@ -337,17 +351,21 @@ export class HttpFunctions {
                 gunzip.on('data', function(data) {
                     buffer.push(data.toString());
                 }).on("error", function(e) {
+                    buffer = null;
                     reject(e);
                 });
 
                 gunzip.on('end', () => {
-                    resolve(buffer.join(""));
+                    let dret = buffer.join("");
+                    buffer = null;
+                    resolve(dret);
                 });
             })
 
             this.AllReqs.push(req);
             
             req.on('error', (error) => {
+                buffer = null;
                 reject(error);
             })
 

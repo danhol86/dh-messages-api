@@ -158,11 +158,7 @@ export class HelperFunctions {
     static getResponseBuffer(httpresp) {
         var buff = Buffer.from(httpresp);
         var base64string = buff.toString('base64');
-        var finalistring = base64string.substring(20, base64string.length - 12);
-        if(finalistring.startsWith("Cgo")) {
-            finalistring = finalistring.substring(0, finalistring.length - 1) + "=";
-        }
-
+        var finalistring = base64string.substring(20);
         return finalistring;
     }
 

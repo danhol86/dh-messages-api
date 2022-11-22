@@ -265,9 +265,9 @@ export class MessagesClient extends TypedEmitter<MessagesClientEvents> {
 
         var ch = cheerio.load(httpgoogle);
         var allscripts = ch('script').get()[1].children[0].data;
-        var reg = /(A16fYe\\x22,\\x5bnull,null,\\x22)(?<GoogleApi>.*?)(\\x22\\x5d\\n\\x5d\\n)/;
+        var reg = /(A16fYe\\x22,\\x5bnull,null,\\x22)(?<GoogleApi>.*?)(\\x22\\x5d\\x5d)/;
 
-        var googleapi = allscripts.match(reg).groups.GoogleApi;
+        var googleapi = httpgoogle.match(reg).groups.GoogleApi;
         return googleapi;
     }
 
@@ -620,10 +620,32 @@ export class MessagesClient extends TypedEmitter<MessagesClientEvents> {
         var httpresp;
         httpresp = await HttpFunctions.httpPostPhoneRelay(resp.protodata, googleapi);
 
-        var baserespons = HelperFunctions.getResponseBuffer(httpresp)
-        var buffer = Buffer.from(baserespons, 'base64');
-        var data = getData(buffer);
-        var qrreqdata = data[2][3];
+        var baserespons = HelperFunctions.getResponseBuffer(httpresp);
+
+        var buffer2 : any[] = [];
+
+        for(var i = 1; i < 20; i++) 
+        {
+            var newstr = baserespons.substring(0, baserespons.length - i);
+            try 
+            {
+                var data = getData(Buffer.from(newstr, 'base64'));
+                buffer2 = data;
+            } catch
+            {
+
+            }
+            try 
+            {
+                var data = getData(Buffer.from(newstr + "=", 'base64'));
+                buffer2 = data;
+            } catch
+            {
+
+            }
+        }
+
+        var qrreqdata = buffer2[2][3];
 
         var qrlink = await this.getQRCodeLink(qrreqdata, crypto_msg_enc_key, crypto_msg_hmac);
 

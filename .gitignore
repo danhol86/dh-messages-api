@@ -4,3 +4,4 @@ data
 *.png
 logs
 sessionData.txt
+build

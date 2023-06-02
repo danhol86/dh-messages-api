@@ -274,21 +274,27 @@ export class MessagesClient extends TypedEmitter<MessagesClientEvents> {
     private async GetRecData(respd) {
 
         var alldresp;
+        
         try {
-            alldresp= respd;
-            subresp = alldresp[1];
-            var b64 = subresp[11];
+            alldresp = respd[0][2];
+            var b64 = alldresp[1][11];
         } catch {
             try {
-                alldresp = respd[0][1];
-                var b64 = alldresp[1][11];
+                alldresp= respd;
+                subresp = alldresp[1];
+                var b64 = subresp[11];
             } catch {
                 try {
-                    alldresp = respd[0][2];
+                    alldresp = respd[0][1];
                     var b64 = alldresp[1][11];
                 } catch {
-                    alldresp = respd[0][3];
-                    var b64 = alldresp[1][11];
+                    try {
+                        alldresp = respd[0][2];
+                        var b64 = alldresp[1][11];
+                    } catch {
+                        alldresp = respd[0][3];
+                        var b64 = alldresp[1][11];
+                    }
                 }
             }
         }

@@ -2,8 +2,6 @@ import { MessagesClient } from "./messages";
 import * as QRCode from 'qrcode';
 import { writeFileSync, readFileSync, existsSync, mkdirSync } from 'fs';
 import { MessagesManager } from './manager';
-import * as API from './api';
-import { getData } from 'rawproto';
 
 const messages  = new MessagesClient();
 
@@ -15,10 +13,10 @@ const messages  = new MessagesClient();
     }
 
     // run this first to setup new client and get QR code. once scanned, all events after should be emitted including conversation list and messages etc.
-    await New();
+    //await New();
 
     //run this after initial setup has already been complete to use session data from New function
-    //await Existing();
+    await Existing();
 })();
 
 
@@ -119,7 +117,7 @@ async function Existing() {
         var newMessages = await MessagesManager.SetupConvData(msgData, messagesFound, messages);
         for(var newm in newMessages) {
             var mess = newMessages[newm];
-            LogMessge("New Message Received");
+            LogMessge("New Message Received - " + mess.MsgText);
             msgData.ProcessedMessages.push(mess.MsgId);
         }
         Save(JSON.stringify(msgData), "data/msgData.txt");

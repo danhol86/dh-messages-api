@@ -5,3 +5,4 @@ data
 *.png
 logs
 sessionData.txt
+.vs

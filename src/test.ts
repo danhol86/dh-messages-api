@@ -2,10 +2,21 @@ import { MessagesClient } from "./messages";
 import * as QRCode from 'qrcode';
 import { writeFileSync, readFileSync, existsSync, mkdirSync } from 'fs';
 import { MessagesManager } from './manager';
+import { HelperFunctions } from './helpers';
 
 const messages  = new MessagesClient();
 
 (async () => {
+
+    var my64 = "YR0cOZqCHwXZ4tapYiLs+9LLmrV98bD/VzoIouZUgA44qMJmiss0Y9NJu+A64gqNXJM78fuATASLek487tN3Ck9bbaLaq4b9yelfLB+ExnrbDRR4FaINSeZ/FtXptNwRCxxQ29Vj5OT4K67mygzVd46ij6QRkGNApvquDwCQ4aR1sILn/hzgO2GVcx63x1nidj7GgNOZBJHQ+JCbCw==";
+    var crypto_msg_enc_key = "hpJeXj3IJYcYCwaj7Qk5O5+9nAWl/TS4LWlB6NHnKso=";
+    var crypto_msg_hmac = "TqXUseZ2+/MnBi6t9TsU95s2GAJo2UjGiRFJSJdnU2s=";
+
+    var deckey = Buffer.from(crypto_msg_enc_key, 'base64');
+    var mymes = Buffer.from(my64, 'base64')
+    var resp = await HelperFunctions.DeCryptMessage2(mymes, deckey);
+
+    var my64 = Buffer.from(resp).toString('base64')
 
     //create data folder to store session data and message ids for each conversation.
     if (!existsSync("data")){
@@ -129,6 +140,16 @@ async function Existing() {
     } catch {}
 
     await messages.Setup(sessionData);
+
+    var convData = msgData.Conversations[62];
+    var frecord = sessionData;
+    if(convData.RoomName == "Me") {
+        convData = msgData.Conversations[62];
+        
+        await messages.SendMessage("62", "331", "Hello there");
+
+    }
+    
 }
 
 var allMessages: any[] = [];

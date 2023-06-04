@@ -242,6 +242,9 @@ export class MessagesClient extends TypedEmitter<MessagesClientEvents> {
 
         var sendObj = API.GetSendMessageObj(mess.message);
 
+        var buffer = Buffer.from(sendObj);
+        var qrcode =  buffer.toString('base64');
+
         var sendmess3id = await API.GetReqId();
         await this.SendWithMessage(sendObj, sendmess3id, this.sessionid, 3, this.sessionData.crypto_msg_enc_key, this.sessionData.crypto_msg_hmac, this.sessionData.bugle, this.sessionData.pr_tachyon_auth_token, this.googleapi)
     }
@@ -274,7 +277,20 @@ export class MessagesClient extends TypedEmitter<MessagesClientEvents> {
     private async GetRecData(respd) {
 
         var alldresp;
-        
+    var found = false;
+    for(var x = 1; x < 10; x++) {
+        try {
+            alldresp = respd[0][x];
+            var b64 = alldresp[1][11];
+            found = true;
+
+            break;
+        } catch {
+
+        }
+    }
+
+    if(found == false) {
         try {
             alldresp = respd[0][2];
             var b64 = alldresp[1][11];
@@ -298,6 +314,7 @@ export class MessagesClient extends TypedEmitter<MessagesClientEvents> {
                 }
             }
         }
+    }
         var subresp = alldresp[1];
         var respguid = subresp[0];
         var bugled = subresp[7];
@@ -608,6 +625,14 @@ export class MessagesClient extends TypedEmitter<MessagesClientEvents> {
 
         var k1k = await API.GetKeyFromWebE(subk);
 
+        const uint8Array = subk;
+        const base64 = Buffer.from(uint8Array).toString('base64');
+
+        console.log(k1k)
+        console.log(base64)
+
+        k1k = base64;
+
         var b = {
             kty: "oct",
             k: k1k,
@@ -681,6 +706,9 @@ export class MessagesClient extends TypedEmitter<MessagesClientEvents> {
         var uint8conv = new Uint8Array(uintbuf)
 
         var ackreqid = await API.EncKey(uint8conv);
+
+        var sendprotoBuff = Buffer.from(ackreqid).toString("base64");
+
         var httprespwebenc;
         httprespwebenc = await HttpFunctions.httpPostWebEnc(ackreqid, googleapi);
 

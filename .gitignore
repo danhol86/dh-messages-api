@@ -1,6 +1,8 @@
+build
 node_modules
 .env
 data
 *.png
 logs
 sessionData.txt
+.vs

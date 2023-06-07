@@ -24,10 +24,10 @@ const messages  = new MessagesClient();
     }
 
     // run this first to setup new client and get QR code. once scanned, all events after should be emitted including conversation list and messages etc.
-    //await New();
+    await New();
 
     //run this after initial setup has already been complete to use session data from New function
-    await Existing();
+    //await Existing();
 })();
 
 

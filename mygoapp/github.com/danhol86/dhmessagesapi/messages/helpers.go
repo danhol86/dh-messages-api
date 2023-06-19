@@ -41,19 +41,6 @@ func ConvertToUint8Array(byteArray []byte) []uint8 {
 	return uint8Array
 }
 
-func getResponseBuffer(httpresp []byte) []byte {
-	buff := make([]byte, len(httpresp))
-	copy(buff, httpresp)
-
-	// Trim last 8 bytes
-	buff = buff[:len(buff)-8]
-
-	// Remove first 15 bytes
-	buff = buff[15:]
-
-	return buff
-}
-
 func ProcessString(jsonString string) (string, string, error) {
 	var jsonObj [][][]interface{}
 	var guid string

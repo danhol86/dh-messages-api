@@ -45,15 +45,13 @@ async function main() {
 
         writeFileSync(sessionFileName, JSON.stringify(data));
 
-        
+        //get messages for contact Id - 62
         //await maincode.TriggerGetMessages(data, "62");
+
+        //send message from to contact 331
         //await maincode.TriggerSendMessage(data, "62", "331", "this is a test 1");
-        //await maincode.TriggerSendMessage(data, "62", "331", "this is a test 2");
 
-        var mssageidrec = [];
-
-        const d = new Date();
-        //await maincode.TriggerSendMessage(data, "62", "331", "this is a test " + d.toTimeString());
+        //get last 10 messages
         //await maincode.TriggerGetMessageList(data, 10);
 
         await maincode.ListenNewMessages(data, async function(resp, messageList) {
@@ -76,13 +74,6 @@ async function main() {
                     var MessageCode = mlist.updates[0].items[0].MessageData.MessageCode;
                     var Recipient = mlist.updates[0].items[0].RecipientId;
                     var MessageId = mlist.updates[0].items[0].MessageId;
-
-                    if(mssageidrec.includes(MessageId) == false && MessageText.includes("REPLY") == false && Recipient == "66") 
-                    {
-                        mssageidrec.push(MessageId);
-                        await maincode.TriggerSendMessage(data, "62", "331", "REPLY " + " " + MessageText + " " + d.toTimeString());
-                        await maincode.TriggerGetMessageList(data, "5");
-                    }
 
                     console.log("(" + MesssageStatus + ") " + MessageText + " - " + MessageCode + " : Recipient-" + Recipient);
                 }

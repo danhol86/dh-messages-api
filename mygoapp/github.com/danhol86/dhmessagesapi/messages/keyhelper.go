@@ -32,8 +32,8 @@ type SessionData struct {
 	Crypto_msg_enc_key    string
 	Crypto_msg_hmac       string
 	Pr_tachyon_auth_token string
-	Bugle                 UserScan_UserScanData_BugleScheme
-	Bugle15               UserScan_UserScanData_BugleScheme
+	Bugle                 string
+	Bugle15               string
 	pubKeyExp             jwk.Key
 	privKeyExp            jwk.Key
 	CryptoPubKey          string
@@ -143,6 +143,9 @@ func GetRefreshToken(privkey, pubkey, refreqid string, utimestamp int64) (string
 	signature := append(r.Bytes(), s.Bytes()...)
 
 	newsig, err := EncodeUINT(signature)
+	if err != nil {
+		return "", err
+	}
 
 	encstr := base64.StdEncoding.EncodeToString(newsig)
 
@@ -152,7 +155,7 @@ func GetRefreshToken(privkey, pubkey, refreqid string, utimestamp int64) (string
 func EncodeUINT(c []byte) ([]byte, error) {
 	b := c
 	if len(b)%2 != 0 || len(b) == 0 || len(b) > 132 {
-		return nil, fmt.Errorf("Invalid IEEE P1363 signature encoding. Length: %d", len(b))
+		return nil, fmt.Errorf("invalid ieee p1363 signature encoding. length: %d", len(b))
 	}
 	cBytes := Oha(b[:len(b)/2])
 	bBytes := Oha(b[len(b)/2:])

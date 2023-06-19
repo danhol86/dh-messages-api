@@ -3,7 +3,7 @@ package messages
 import (
 	"log"
 
-	"github.com/golang/protobuf/proto"
+	"google.golang.org/protobuf/proto"
 )
 
 func ConvertProtoToUserScan(barr []byte) (resp UserScan) {

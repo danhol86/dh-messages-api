@@ -54,7 +54,7 @@ func RefreshToken(mydata *SessionData) {
 		return
 	}
 
-	refJson := GetRefreshTokenJSON(refreqid, mydata.Pr_tachyon_auth_token, mydata.Bugle15.BugleId, mydata.Bugle15.BugleNum, mydata.Bugle15.Bugle, utimestamp, rtoken)
+	refJson := GetRefreshTokenJSON(refreqid, mydata.Pr_tachyon_auth_token, 15, mydata.Bugle15, "Bugle", utimestamp, rtoken)
 
 	jsonData, err := json.Marshal(refJson)
 	if err != nil {
@@ -63,7 +63,6 @@ func RefreshToken(mydata *SessionData) {
 	}
 
 	jsonString := string(jsonData)
-	fmt.Println(jsonString)
 
 	httprespack, err := httpPostAckMessages("/$rpc/google.internal.communications.instantmessaging.v1.Registration/RegisterRefresh", jsonString, mydata.GoogleApi)
 	if err != nil {
@@ -77,7 +76,7 @@ func RefreshToken(mydata *SessionData) {
 		return
 	}
 
-	mydata.Bugle15.BugleNum = newbug15
+	mydata.Bugle15 = newbug15
 	mydata.Pr_tachyon_auth_token = newtach
 	mydata.Expire = expAsDate
 }
@@ -174,11 +173,15 @@ func WaitForUserScan(sess *SessionData) (*SessionData, error) {
 	sess.UserScanProto = b64prot
 
 	b64bytes, err := base64.StdEncoding.DecodeString(sess.UserScanProto)
+	if err != nil {
+		return nil, err
+	}
+
 	ress := ConvertProtoToUserScan(b64bytes)
 
 	sess.Pr_tachyon_auth_token = ConvertToBase64String(ress.Data.Tachyon.Tachyon)
-	sess.Bugle = *ress.Data.Bugle13
-	sess.Bugle15 = *ress.Data.Bugle15
+	sess.Bugle = ress.Data.Bugle13.BugleNum
+	sess.Bugle15 = ress.Data.Bugle15.BugleNum
 	sess.Expire = GetDateFromExp(86400000000)
 	return sess, nil
 }

@@ -42,7 +42,7 @@ func main() {
 			return
 		}
 
-		helpers.SaveQRCode(sess.QrLink, rootFolder+"goQR.png")
+		helpers.SaveQRCode(newsess.QrLink, rootFolder+"goQR.png")
 
 		newsess, err = messages.WaitForUserScan(newsess)
 

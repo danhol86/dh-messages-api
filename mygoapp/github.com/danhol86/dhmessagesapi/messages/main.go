@@ -54,7 +54,7 @@ func RefreshToken(mydata *SessionData) {
 		return
 	}
 
-	refJson := GetRefreshTokenJSON(refreqid, mydata.Pr_tachyon_auth_token, mydata.Bugle15, utimestamp, rtoken)
+	refJson := GetRefreshTokenJSON(refreqid, mydata.Pr_tachyon_auth_token, mydata.Bugle15.BugleId, mydata.Bugle15.BugleNum, mydata.Bugle15.Bugle, utimestamp, rtoken)
 
 	jsonData, err := json.Marshal(refJson)
 	if err != nil {

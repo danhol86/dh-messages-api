@@ -5,7 +5,6 @@ import (
 	"compress/gzip"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"strings"
 )
@@ -28,7 +27,7 @@ func httpGetGoogle() ([]byte, error) {
 	}
 	defer resp.Body.Close()
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -74,7 +73,7 @@ func httpPostAckMessages(path string, jsondata string, googleapi string) (string
 	}
 	defer reader.Close()
 
-	body, err := ioutil.ReadAll(reader)
+	body, err := io.ReadAll(reader)
 	if err != nil {
 		return "", err
 	}
@@ -124,7 +123,7 @@ func httpPostPhoneRelay(data []byte, googleapi string) ([]byte, error) {
 
 		return buf.Bytes(), nil
 	default:
-		body, err := ioutil.ReadAll(resp.Body)
+		body, err := io.ReadAll(resp.Body)
 		if err != nil {
 			return nil, err
 		}

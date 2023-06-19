@@ -35,7 +35,7 @@ func main() {
 		messages.CheckRefreshToken(sess)
 	} else {
 
-		sess, err := messages.GetNewSessionData()
+		newsess, err := messages.GetNewSessionData()
 
 		if err != nil {
 			fmt.Println(err)
@@ -44,12 +44,13 @@ func main() {
 
 		helpers.SaveQRCode(sess.QrLink, rootFolder+"goQR.png")
 
-		sess, err = messages.WaitForUserScan(sess)
+		newsess, err = messages.WaitForUserScan(newsess)
 
 		if err != nil {
 			fmt.Println(err)
 			return
 		}
+		sess = newsess
 	}
 
 	fmt.Println("Updating session file")

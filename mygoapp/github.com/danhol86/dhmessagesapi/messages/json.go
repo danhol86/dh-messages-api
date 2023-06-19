@@ -24,9 +24,9 @@ func getRecMessagesStringJSON(reqid string, b64 string) string {
 	return string(jsonData)
 }
 
-func GetRefreshTokenJSON(guid, oldtachyon string, bugle UserScan_UserScanData_BugleScheme, unixtimestamp int64, signedcode interface{}) []interface{} {
+func GetRefreshTokenJSON(guid, oldtachyon string, BugleId int32, BugleNum string, Bugle string, unixtimestamp int64, signedcode interface{}) []interface{} {
 
-	bugleobj := []interface{}{bugle.BugleId, bugle.BugleNum, bugle.Bugle}
+	bugleobj := []interface{}{BugleId, BugleNum, Bugle}
 
 	dateObj := []interface{}{nil, nil, 2021, 2, 15, nil, 4, nil, 6}
 

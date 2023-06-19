@@ -6,7 +6,7 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
-func ConvertProtoToUserScan(barr []byte) (resp UserScan) {
+func ConvertProtoToUserScan(barr []byte) (resp *UserScan) {
 	person := &UserScan{}
 
 	err := proto.Unmarshal(barr, person)
@@ -14,10 +14,10 @@ func ConvertProtoToUserScan(barr []byte) (resp UserScan) {
 		log.Fatal("Unmarshal error:", err)
 	}
 
-	return *person
+	return person
 }
 
-func ConvertProtoToResponse(barr []uint8) (resp PRRecieve) {
+func ConvertProtoToResponse(barr []uint8) (resp *PRRecieve) {
 	person := &PRRecieve{}
 
 	err := proto.Unmarshal(barr, person)
@@ -25,7 +25,7 @@ func ConvertProtoToResponse(barr []uint8) (resp PRRecieve) {
 		log.Fatal("Unmarshal error:", err)
 	}
 
-	return *person
+	return person
 }
 
 func ConvertToByteArray(uid string, barr []uint8) (data []byte, err error) {

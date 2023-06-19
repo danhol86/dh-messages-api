@@ -7,6 +7,7 @@ This client uses android API to mimic browser calls to connect to and manage mes
 Node
 
 * [x] extract QR code image
+* [x] refresh token
 * [x] read incoming messages
 * [x] read messages for contact
 * [x] send message to existing contact
@@ -18,6 +19,7 @@ Node
 Go
 
 * [x] extract QR code image
+* [x] refresh token
 * [ ] read incoming messages
 * [ ] read messages for contact
 * [ ] send message to existing contact

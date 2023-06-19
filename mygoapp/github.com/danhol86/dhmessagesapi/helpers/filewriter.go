@@ -1,4 +1,4 @@
-package main
+package helpers
 
 import (
 	"bufio"
@@ -9,7 +9,7 @@ import (
 	"strconv"
 )
 
-func writeJSONToFile(sessionFileName string, data interface{}) {
+func WriteJSONToFile(sessionFileName string, data interface{}) {
 	jsonData, err := json.Marshal(data)
 	if err != nil {
 		log.Fatalf("Failed to JSON encode data: %v", err)

@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"runtime"
 
+	"github.com/danhol86/dhmessagesapi/helpers"
 	"github.com/danhol86/dhmessagesapi/messages"
 )
 
 func main() {
-
 	rootFolder := "/data/"
 	if runtime.GOOS == "windows" {
 		rootFolder = "../../../../data/"
@@ -18,7 +18,7 @@ func main() {
 	sess := &messages.SessionData{}
 
 	sessionFileLocation := rootFolder + "sessionFile.json"
-	sessionDataString := ReadTextFromFile(sessionFileLocation, false)
+	sessionDataString := helpers.ReadTextFromFile(sessionFileLocation, false)
 
 	if sessionDataString != "" {
 
@@ -42,7 +42,7 @@ func main() {
 			return
 		}
 
-		SaveQRCode(sess.QrLink, rootFolder+"goQR.png")
+		helpers.SaveQRCode(sess.QrLink, rootFolder+"goQR.png")
 
 		sess, err = messages.WaitForUserScan(sess)
 
@@ -53,5 +53,5 @@ func main() {
 	}
 
 	fmt.Println("Updating session file")
-	writeJSONToFile(sessionFileLocation, sess)
+	helpers.WriteJSONToFile(sessionFileLocation, sess)
 }

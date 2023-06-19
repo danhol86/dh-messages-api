@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package dhmessagesapiprotos;
+package messages;
 
-option go_package = "dhmessagesapi/protos";
+option go_package = "github.com/danhol86/dhmessagesapi";
 
 message PRCreate {
     PRCP1Scheme p1 = 1;

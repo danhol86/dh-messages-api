@@ -5,6 +5,5 @@ WORKDIR /app
 COPY . .
 
 RUN go mod download
-RUN go build -o mygoapp
 
-CMD ["./mygoapp"]
+CMD ["./mygoapp/github.com/danhol86/myexample"]

@@ -1,4 +1,4 @@
-module mygoapp
+module github.com/danhol86/dhmessagesapi
 
 go 1.20
 

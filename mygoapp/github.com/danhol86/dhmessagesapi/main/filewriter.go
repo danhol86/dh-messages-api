@@ -9,7 +9,7 @@ import (
 	"strconv"
 )
 
-func writeJSONToFile(sessionFileName string, data *SessionData) {
+func writeJSONToFile(sessionFileName string, data interface{}) {
 	jsonData, err := json.Marshal(data)
 	if err != nil {
 		log.Fatalf("Failed to JSON encode data: %v", err)

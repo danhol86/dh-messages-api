@@ -1,8 +1,7 @@
-package main
+package messages
 
 import (
 	"encoding/json"
-	"mygoapp/proto/dhmessagesapi/protos"
 )
 
 func getRecMessagesStringJSON(reqid string, b64 string) string {
@@ -25,7 +24,7 @@ func getRecMessagesStringJSON(reqid string, b64 string) string {
 	return string(jsonData)
 }
 
-func GetRefreshTokenJSON(guid, oldtachyon string, bugle protos.UserScan_UserScanData_BugleScheme, unixtimestamp int64, signedcode interface{}) []interface{} {
+func GetRefreshTokenJSON(guid, oldtachyon string, bugle UserScan_UserScanData_BugleScheme, unixtimestamp int64, signedcode interface{}) []interface{} {
 
 	bugleobj := []interface{}{bugle.BugleId, bugle.BugleNum, bugle.Bugle}
 

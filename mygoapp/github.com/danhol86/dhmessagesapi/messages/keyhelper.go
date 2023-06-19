@@ -1,4 +1,4 @@
-package main
+package messages
 
 import (
 	"crypto/ecdsa"
@@ -10,7 +10,6 @@ import (
 	"fmt"
 	"log"
 	"math/big"
-	"mygoapp/proto/dhmessagesapi/protos"
 	"time"
 
 	"github.com/lestrrat-go/jwx/jwk"
@@ -33,8 +32,8 @@ type SessionData struct {
 	Crypto_msg_enc_key    string
 	Crypto_msg_hmac       string
 	Pr_tachyon_auth_token string
-	Bugle                 protos.UserScan_UserScanData_BugleScheme
-	Bugle15               protos.UserScan_UserScanData_BugleScheme
+	Bugle                 UserScan_UserScanData_BugleScheme
+	Bugle15               UserScan_UserScanData_BugleScheme
 	pubKeyExp             jwk.Key
 	privKeyExp            jwk.Key
 	CryptoPubKey          string
@@ -46,6 +45,7 @@ type SessionData struct {
 	Qrreqdata             []byte
 	eCDSAKeys             *ecdsa.PrivateKey
 	Expire                time.Time
+	QrLink                string
 }
 type Keys struct {
 	CryptoMsgEncKey []uint8

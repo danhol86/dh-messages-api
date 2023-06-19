@@ -1,46 +1,12 @@
-package main
+package messages
 
 import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"runtime"
 	"strconv"
 	"time"
 )
-
-var (
-	rootFolder = "/data/"
-)
-
-func main() {
-
-	if runtime.GOOS == "windows" {
-		rootFolder = "data/"
-	}
-
-	sess := &SessionData{}
-	err := error(nil)
-
-	sessionFileLocation := rootFolder + "sessionFile.json"
-	sessionDataString := ReadTextFromFile(sessionFileLocation, false)
-
-	if sessionDataString != "" {
-		err = json.Unmarshal([]byte(sessionDataString), &sess)
-	} else {
-		sess, err = getNewSessionData()
-		writeJSONToFile(sessionFileLocation, sess)
-	}
-
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-
-	CheckRefreshToken(sess)
-
-	writeJSONToFile(sessionFileLocation, sess)
-}
 
 func ProcessRefreshData(jsonString string) (string, string, time.Time, error) {
 	var jsonObj []interface{}
@@ -116,7 +82,7 @@ func RefreshToken(mydata *SessionData) {
 	mydata.Expire = expAsDate
 }
 
-func getNewSessionData() (*SessionData, error) {
+func GetNewSessionData() (*SessionData, error) {
 
 	sess, err := GetKeysAndReturnSessionData()
 	if err != nil {
@@ -177,7 +143,12 @@ func getNewSessionData() (*SessionData, error) {
 
 	fmt.Println("uint8:", qrlink)
 
-	SaveQRCode(qrlink, rootFolder+"goQR.png")
+	sess.QrLink = qrlink
+
+	return sess, nil
+}
+
+func WaitForUserScan(sess *SessionData) (*SessionData, error) {
 
 	uid2, err := generateUUID()
 	if err != nil {

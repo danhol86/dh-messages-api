@@ -1,15 +1,13 @@
-package main
+package messages
 
 import (
 	"log"
 
-	"mygoapp/proto/dhmessagesapi/protos"
-
 	"github.com/golang/protobuf/proto"
 )
 
-func ConvertProtoToUserScan(barr []byte) (resp protos.UserScan) {
-	person := &protos.UserScan{}
+func ConvertProtoToUserScan(barr []byte) (resp UserScan) {
+	person := &UserScan{}
 
 	err := proto.Unmarshal(barr, person)
 	if err != nil {
@@ -19,8 +17,8 @@ func ConvertProtoToUserScan(barr []byte) (resp protos.UserScan) {
 	return *person
 }
 
-func ConvertProtoToResponse(barr []uint8) (resp protos.PRRecieve) {
-	person := &protos.PRRecieve{}
+func ConvertProtoToResponse(barr []uint8) (resp PRRecieve) {
+	person := &PRRecieve{}
 
 	err := proto.Unmarshal(barr, person)
 	if err != nil {
@@ -32,11 +30,11 @@ func ConvertProtoToResponse(barr []uint8) (resp protos.PRRecieve) {
 
 func ConvertToByteArray(uid string, barr []uint8) (data []byte, err error) {
 
-	person := &protos.PRCreate{
-		P1: &protos.PRCreate_PRCP1Scheme{
+	person := &PRCreate{
+		P1: &PRCreate_PRCP1Scheme{
 			Guid:  uid,
 			Bugle: "Bugle",
-			P1: &protos.PRCreate_PRCP1Scheme_PRCDateTime{
+			P1: &PRCreate_PRCP1Scheme_PRCDateTime{
 				Year:   2023,
 				Month:  6,
 				Day:    9,
@@ -44,14 +42,14 @@ func ConvertToByteArray(uid string, barr []uint8) (data []byte, err error) {
 				Second: 30,
 			},
 		},
-		P2: &protos.PRCreate_PRCP2Scheme{
+		P2: &PRCreate_PRCP2Scheme{
 			Browser: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36",
 			Bnum:    2,
 			Os:      "Windows",
 			Version: "10.0",
 		},
-		P3: &protos.PRCreate_PRCP3Scheme{
-			P1: &protos.PRCreate_PRCP3Scheme_PRCEncryptedP1Scheme{
+		P3: &PRCreate_PRCP3Scheme{
+			P1: &PRCreate_PRCP3Scheme_PRCEncryptedP1Scheme{
 				Bnum:   2,
 				Keyenc: barr,
 			},
@@ -70,7 +68,7 @@ func ConvertToByteArray(uid string, barr []uint8) (data []byte, err error) {
 
 func ConvertQRToByteArray(barr1 []uint8, barr2 []byte, barr3 []byte) (data []byte, err error) {
 
-	person := &protos.QR{
+	person := &QR{
 		P1: barr1,
 		P2: barr2,
 		P3: barr3,

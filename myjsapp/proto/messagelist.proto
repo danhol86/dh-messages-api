@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+message Item {
+    string MessageId = 1;
+    string MessageName = 2;
+
+    MData MessageData  = 4;
+
+    string ConvId = 7;
+    string RecipientId = 9;
+    MContent Content = 10;
+
+    message MData {
+        string Message = 1;
+        int32 MessageCode = 2;
+        string MesssageName = 4;
+    }
+
+    message MContent {
+        string MessageId = 1;
+        MContentValue MessageValue = 2;
+    }
+
+    message MContentValue {
+        string MessageText = 1;
+    }
+}
+
+message MyMessage {
+  repeated Item items = 2;
+}
+
+message UpdateMessage {
+  repeated Item items = 2;
+  repeated MyMessage updates = 3;
+  ConnectionUpdate update = 6;
+}
+
+message ConnectionUpdate {
+  int32 UpdateCode = 2;
+}
+
+message Messageupdate {
+  repeated MessageItem items = 2;
+}
+
+message MessageItem {
+    string MessageId = 1;
+    MStatus MessageStatus = 2;
+
+    message MStatus {
+        string StatusId = 2;
+        string StatusText = 5;
+    }
+}

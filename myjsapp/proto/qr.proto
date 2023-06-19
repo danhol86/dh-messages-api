@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+message QR {
+    bytes p1 = 1;
+    bytes p2 = 2;
+    bytes p3 = 3;
+}

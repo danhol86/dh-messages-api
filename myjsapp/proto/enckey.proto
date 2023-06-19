@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+message Person {
+    P1Scheme p1 = 1;
+}
+
+message P1Scheme {
+    string guid = 1;
+    bytes key = 6;
+    DateTime p1 = 7;
+
+    message DateTime {
+        int32 year = 3;
+        int32 month = 4;
+        int32 day = 5;
+        int32 hour = 7;
+        int32 second = 9;
+    }
+}

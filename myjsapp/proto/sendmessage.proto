@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+message SENDMESSAGE {
+    string id1 = 1;
+    int32 p2 = 2;
+    bytes message = 5;
+    string id2 = 6;
+}

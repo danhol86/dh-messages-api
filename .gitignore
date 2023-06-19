@@ -1,8 +1,10 @@
 build
 node_modules
 .env
-data
 *.png
+*.exe
 logs
 sessionData.txt
+sessionFile.json
+settings.json
 .vs

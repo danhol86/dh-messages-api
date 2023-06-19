@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+message Person {
+    P1Scheme p1 = 1;
+    P2Scheme p2 = 3;
+    P3Scheme p3 = 4;
+}
+
+message P1Scheme {
+    string guid = 1;
+    string bugle = 3;
+    DateTime p1 = 7;
+
+    message DateTime {
+        int32 year = 3;
+        int32 month = 4;
+        int32 day = 5;
+        int32 hour = 7;
+        int32 second = 9;
+    }
+}
+
+message P2Scheme {
+    string browser = 1;
+    int32 bnum = 2;
+    string os = 3;
+    string version = 4;
+}
+
+message P3Scheme {
+    EncryptedP1Scheme p1 = 6;
+
+    message EncryptedP1Scheme {
+        int32 bnum = 1;
+        bytes keyenc = 2;
+    }
+}

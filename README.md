@@ -1,62 +1,76 @@
 # dh-messages-client
 
-This client uses android API and subtle encryption to mimic browser calls to connect to and manage messages from https://messages.google.com/web/conversations
+This client uses android API to mimic browser calls to connect to and manage messages from https://messages.google.com/web/conversations
 
 ## Status
 
-- [x] extract QR code image
-- [x] read incoming messages
-- [x] read messages for contact
-- [x] send message to existing contact
-- [x] download images
-- [ ] download attachments
-- [ ] send images/attachments
-- [ ] send message to new number
-## Setup
+Node
 
-Clone the repo and install the dependencies:
+* [x] extract QR code image
+* [x] read incoming messages
+* [x] read messages for contact
+* [x] send message to existing contact
+* [x] download images
+* [ ] download attachments
+* [ ] send images/attachments
+* [ ] send message to new number
+
+Go
+
+* [x] extract QR code image
+* [ ] read incoming messages
+* [ ] read messages for contact
+* [ ] send message to existing contact
+* [ ] download images
+* [ ] download attachments
+* [ ] send images/attachments
+* [ ] send message to new number
+
+## Setup - Node (Docker)
+
+> [Install Docker](https://www.docker.com/products/docker-desktop/)
 
 ```
-git clone https://github.com/danhol86/dh-messages-api
-cd dh-messages-api
+git clone -b ReverseGoogleAPI https://github.com/danhol86/dh-messages-api
+cd dh-messages-api/myjsapp
+docker compose up --build
+```
+
+## Setup - Node (Local)
+
+> [Install node > v15](https://nodejs.dev/en/download/)
+
+```
+git clone -b ReverseGoogleAPI https://github.com/danhol86/dh-messages-api
+cd dh-messages-api/myjsapp
 npm install
+node src/test.js
 ```
-You will need to ensure you have have node v15 as uses Subtle from webcrypto.
 
-Project is built using Typescript, however due to size of googles js file, this is copied seprately at the end to build folder 
+## Setup - GO (Docker)
+
+> [Install Docker](https://www.docker.com/products/docker-desktop/)
+
+```
+git clone -b ReverseGoogleAPI https://github.com/danhol86/dh-messages-api
+cd dh-messages-api/mygoapp
+docker compose up --build
+```
+
+## Setup - GO (Local)
+
+> [Install Go](https://go.dev/dl/)
+
+```
+git clone -b ReverseGoogleAPI https://github.com/danhol86/dh-messages-api
+cd dh-messages-api/mygoapp
+go mod download
+go run mygoapp
+```
+
 ## Testing
 
-This repo contains test.ts file which uses all methods and events. 
-* To run this simply call npm run start. 
-
-* This will call Connect method which fires qr code event.
-
-* This test will generate a new image file in the source folder called myqrcode.png
-
+* The tests will generate a new image file in the source data folder called myqrcode.png
 * Open and scan image using messages app
-
 * All events should fire and show in debug
-
-* All required data is stored to Data folder. This includes sessiondata, which is needed for reconnecting using tokens and encryption keys, and all message ids to track only new messages
-
-
-## Events and functions
-
-| Event         | Definition                                                                          |
-| ------------- |-------------------------------------------------------------------------------------|
-| error         | any error either thrown by http client of api                                       |
-| qrcode        | on setting up new connection. called with qr code url                               |
-| sessiondata   | anytime session tokens are updated on new setup or refreshing of token              |
-| closed        | when http request is closed. google closes usually every 15 minutes                 |   
-| invalidtoken  | if for any reason token isnt accepted by google                                     |
-| messsagelist  | contains list of all messages including name/number and last message                |
-| debug         | any debug message                                                                   |
-| messageupdate | these are status messages such as 'sending....'                                     |
-| convlist      | all messages for a particular conversation id                                       |
-
-| Method        | Definition                                                                          |
-| ------------- |-------------------------------------------------------------------------------------|
-| Setup         | when reconnecting using existing session data (tokens/encryption from Connect stage)|
-| Close         | closes http connection                                                              |
-| Connect       | new connection, will trigger qrcode event on success                                |
-| DownloadFile  | message will contain id of image/attachment to download                             |   
+* All required data is stored to data folder. This includes sessiondata, which is needed for reconnecting using tokens and encryption keys

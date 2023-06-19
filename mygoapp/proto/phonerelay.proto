@@ -1,0 +1,90 @@
+syntax = "proto3";
+
+package dhmessagesapiprotos;
+
+option go_package = "dhmessagesapi/protos";
+
+message PRCreate {
+    PRCP1Scheme p1 = 1;
+    PRCP2Scheme p2 = 3;
+    PRCP3Scheme p3 = 4;
+
+    message PRCP1Scheme {
+        string guid = 1;
+        string bugle = 3;
+        PRCDateTime p1 = 7;
+
+        message PRCDateTime {
+            int32 year = 3;
+            int32 month = 4;
+            int32 day = 5;
+            int32 hour = 7;
+            int32 second = 9;
+        }
+    }
+
+    message PRCP2Scheme {
+        string browser = 1;
+        int32 bnum = 2;
+        string os = 3;
+        string version = 4;
+    }
+
+    message PRCP3Scheme {
+        PRCEncryptedP1Scheme p1 = 6;
+
+        message PRCEncryptedP1Scheme {
+            int32 bnum = 1;
+            bytes keyenc = 2;
+        }
+    }
+}
+
+message PRRecieve {
+    PRRP1Scheme p1 = 1;
+    PRRP2Scheme p2 = 2;
+    bytes keyenc = 3;
+    int32 phone1 = 4;
+    PRRP5Scheme p5 = 5;
+    string guid = 6;
+
+    message PRRP1Scheme {
+        int32 timestamp = 2;
+    }
+    message PRRP2Scheme {
+        int32 p2id = 1;
+        string p2str = 2;
+        string p2bugle = 3;
+    }
+    message PRRP5Scheme {
+        bytes p5bytes = 1;
+        int32 p5int = 2;
+    }
+}
+
+message QR {
+    bytes p1 = 1;
+    bytes p2 = 2;
+    bytes p3 = 3;
+}
+
+message UserScan {
+    UserScanData Data = 4;
+
+    message UserScanData {
+        BugleScheme Bugle13 = 1;
+        TachyonScheme Tachyon = 2;
+        BugleScheme Bugle15 = 3;
+
+        message BugleScheme {
+            int32 BugleId = 1;
+            string BugleNum = 2;
+            string Bugle = 3;
+        }
+
+        message TachyonScheme {
+            bytes Tachyon = 1;
+            int32 timestamp = 2;
+        }
+    }
+}

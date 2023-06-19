@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+message RESPONSE {
+    string uid = 1;
+    int32 rcode = 4;
+    int32 rcode2 = 6;
+    int32 rcode3 = 7;
+    bytes message = 8;
+}

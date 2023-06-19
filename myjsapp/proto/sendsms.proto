@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+message SENDSMS {
+    string convID = 2;
+    MData MessageData  = 3;
+    string tempID = 5;
+
+    message MData {
+        string tempID1 = 1;
+        string tempID2 = 12;
+        string senderID = 9;
+
+        SubMData1 SubMessageData1  = 6;
+        string convID = 7;
+        SubMData2 SubMessageData2  = 10;
+
+        message SubMData1 {
+            MessageText messageText = 1;
+        }
+
+        message SubMData2 {
+            MessageText messageText = 2;
+        }
+
+        message MessageText {
+            string value = 1;
+        }
+    }
+}

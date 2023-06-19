@@ -1,0 +1,6 @@
+syntax = "proto3";
+
+message REQUESTMESSAGE {
+    string convid = 2;
+    int32 number = 3;
+}

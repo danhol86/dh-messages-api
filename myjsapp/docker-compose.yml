@@ -1,0 +1,8 @@
+version: '3'
+services:
+  myjsapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./data:/data

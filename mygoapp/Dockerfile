@@ -6,4 +6,4 @@ COPY . .
 
 RUN go mod download
 
-CMD ["./mygoapp/github.com/danhol86/main"]
+CMD ["./github.com/danhol86/dhmessagesapi/main"]

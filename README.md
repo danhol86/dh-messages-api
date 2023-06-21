@@ -65,9 +65,9 @@ docker compose up --build
 
 ```
 git clone -b ReverseGoogleAPI https://github.com/danhol86/dh-messages-api
-cd dh-messages-api/mygoapp
+cd dh-messages-api/mygoapp/github.com/danhol86/dhmessagesapi
 go mod download
-go run mygoapp
+go run ./main
 ```
 
 ## Testing

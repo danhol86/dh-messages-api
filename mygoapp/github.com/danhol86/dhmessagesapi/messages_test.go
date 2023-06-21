@@ -1,18 +1,25 @@
-package main
+package test
 
 import (
 	"encoding/json"
 	"fmt"
+	"os"
 	"runtime"
+	"testing"
 
 	"github.com/danhol86/dhmessagesapi/helpers"
 	"github.com/danhol86/dhmessagesapi/messages"
 )
 
-func main() {
+func TestAllFunction(t *testing.T) {
 	rootFolder := "/data/"
 	if runtime.GOOS == "windows" {
 		rootFolder = "../../../data/"
+	}
+
+	err := os.MkdirAll(rootFolder, os.ModePerm)
+	if err != nil {
+		t.Fatalf("Failed to create folder: %s", err)
 	}
 
 	sess := &messages.SessionData{}
@@ -27,8 +34,7 @@ func main() {
 		err := json.Unmarshal([]byte(sessionDataString), &sess)
 
 		if err != nil {
-			fmt.Println(err)
-			return
+			t.Fatal(err)
 		}
 
 		fmt.Println("Checking refresh token")
@@ -38,8 +44,7 @@ func main() {
 		newsess, err := messages.GetNewSessionData()
 
 		if err != nil {
-			fmt.Println(err)
-			return
+			t.Fatal(err)
 		}
 
 		helpers.SaveQRCode(newsess.QrLink, rootFolder+"goQR.png")
@@ -47,8 +52,7 @@ func main() {
 		newsess, err = messages.WaitForUserScan(newsess)
 
 		if err != nil {
-			fmt.Println(err)
-			return
+			t.Fatal(err)
 		}
 		sess = newsess
 	}

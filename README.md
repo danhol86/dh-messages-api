@@ -30,6 +30,12 @@ Go
 
 ## Testing
 
+* The following tests will start the connection, and if needed, generate a new QR image file in the source data folder.
+* Open and scan image using messages app
+* All events should fire and show in console
+* After auth, all required auth data is stored in a  sessiondata JSON file in data folder.
+* If session file already exists, then initial QR not required, and will connect and refresh token where needed
+
 ### Node (Docker)
 
 > [Install Docker](https://www.docker.com/products/docker-desktop/)
@@ -67,10 +73,3 @@ cd dh-messages-api/mygoapp/github.com/danhol86/dhmessagesapi
 go mod download
 go test
 ```
-
-## Testing
-
-* The tests will generate a new image file in the source data folder called myqrcode.png
-* Open and scan image using messages app
-* All events should fire and show in debug
-* All required data is stored to data folder. This includes sessiondata, which is needed for reconnecting using tokens and encryption keys

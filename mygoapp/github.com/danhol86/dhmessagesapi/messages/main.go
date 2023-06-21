@@ -8,6 +8,67 @@ import (
 	"time"
 )
 
+func StartSession(mydata *SessionData) {
+
+	sessionid, err := generateUUID()
+
+	mydata.SessionId = sessionid
+
+	sendmessageid, err := generateUUID()
+
+	getsm1, err := GetSendMessage(mydata.SessionId, sendmessageid, 13, mydata, make([]byte, 0))
+	getsm2, err := GetSendMessage(mydata.SessionId, mydata.SessionId, 16, mydata, make([]byte, 0))
+
+	if err != nil {
+		fmt.Println("Error ", err)
+	}
+
+	fmt.Println(getsm1)
+	fmt.Println(getsm2)
+}
+
+func GetNewMessages(mydata *SessionData) string {
+	reqid, err := generateUUID()
+	if err != nil {
+		fmt.Println("Error ", err)
+	}
+
+	var respstring = getRecMessagesStringJSON(reqid, mydata.Pr_tachyon_auth_token)
+	respd, err := httpPostRecMessages(respstring, mydata.GoogleApi, ProcessNewMessages)
+
+	if err != nil {
+		fmt.Println("Error ", err)
+	}
+
+	return respd
+}
+
+func ProcessNewMessages(test string) (bool, error) {
+	return false, nil
+}
+
+func GetSendMessage(sessionid, sendmessageid string, midcode int32, mydata *SessionData, message []byte) (string, error) {
+	sendproto, err := CreateSendMessageBuf(sessionid, midcode, sendmessageid, message)
+
+	sendprotoBuff := base64.StdEncoding.EncodeToString(sendproto)
+
+	fmt.Println(sendprotoBuff)
+
+	resjson, err := getSendMessagesStringJSON(13, mydata.Bugle, "Bugle", sendmessageid, mydata.Pr_tachyon_auth_token, sendprotoBuff)
+	if err != nil {
+		fmt.Println("Error:", err)
+		return "", err
+	}
+
+	httprespack, err := httpPostAckMessages("/$rpc/google.internal.communications.instantmessaging.v1.Messaging/SendMessage", resjson, mydata.GoogleApi)
+	if err != nil {
+		fmt.Println("Error:", err)
+		return "", err
+	}
+
+	return httprespack, nil
+}
+
 func ProcessRefreshData(jsonString string) (string, string, time.Time, error) {
 	var jsonObj []interface{}
 	var emptyTime time.Time

@@ -175,7 +175,7 @@ func httpPostRecMessages(jsonData string, googleAPIKey string, callback func(str
 
 	myList := []string{}
 
-	buf := make([]byte, 1024)
+	buf := make([]byte, 100024)
 	for {
 		n, err := gzipReader.Read(buf)
 		if err != nil && err != io.EOF {

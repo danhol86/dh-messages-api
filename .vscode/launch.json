@@ -8,8 +8,8 @@
             "name": "Launch GO",
             "type": "go",
             "request": "launch",
-            "mode": "debug",
-            "program": "${workspaceFolder}\\mygoapp\\github.com\\danhol86\\dhmessagesapi\\main"
+            "mode": "test",
+            "program": "${workspaceFolder}\\mygoapp\\github.com\\danhol86\\dhmessagesapi"
         },
         {
             "type": "node",

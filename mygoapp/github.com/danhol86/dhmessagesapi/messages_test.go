@@ -53,4 +53,8 @@ func TestAllFunction(t *testing.T) {
 
 	fmt.Println("Updating session file")
 	helpers.WriteJSONToFile(sessionFileLocation, sess)
+
+	messages.StartSession(sess)
+
+	messages.GetNewMessages(sess)
 }

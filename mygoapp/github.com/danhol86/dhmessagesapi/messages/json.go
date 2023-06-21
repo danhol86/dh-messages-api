@@ -69,3 +69,48 @@ func GetRefreshTokenJSON(guid, oldtachyon string, BugleId int32, BugleNum string
 
 	return json
 }
+
+func getSendMessagesStringJSON(BugleId int32, BugleNum string, Bugle string, respguid, respauth, sendproto64 string) (string, error) {
+
+	bugleobj := []interface{}{BugleId, BugleNum, Bugle}
+	dateObj := []interface{}{nil, nil, 2021, 2, 15, nil, 4, nil, 6}
+	resjson := []interface{}{
+		bugleobj,
+		[]interface{}{
+			respguid,
+			19,
+			nil,
+			nil,
+			nil,
+			nil,
+			nil,
+			nil,
+			nil,
+			nil,
+			nil,
+			sendproto64,
+		},
+		[]interface{}{
+			respguid,
+			nil,
+			nil,
+			nil,
+			nil,
+			respauth,
+			dateObj,
+		},
+		nil,
+		86400000000,
+		nil,
+		nil,
+		nil,
+		[]interface{}{},
+	}
+
+	resjsonBytes, err := json.Marshal(resjson)
+	if err != nil {
+		return "", err
+	}
+
+	return string(resjsonBytes), nil
+}

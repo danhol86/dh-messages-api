@@ -83,3 +83,22 @@ func ConvertQRToByteArray(barr1 []uint8, barr2 []byte, barr3 []byte) (data []byt
 
 	return data1, err1
 }
+
+func CreateSendMessageBuf(mid1 string, mval int32, mid2 string, mess []byte) (data []byte, err error) {
+
+	person := &SENDMESSAGE{
+		Id1:     mid1,
+		P2:      mval,
+		Message: mess,
+		Id2:     mid2,
+	}
+
+	data1, err1 := proto.Marshal(person)
+	if err1 != nil {
+		log.Fatal("Marshaling error: ", err1)
+	}
+
+	data1 = ConvertToUint8Array(data1)
+
+	return data1, err1
+}

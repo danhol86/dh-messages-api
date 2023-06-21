@@ -46,6 +46,7 @@ type SessionData struct {
 	eCDSAKeys             *ecdsa.PrivateKey
 	Expire                time.Time
 	QrLink                string
+	SessionId             string
 }
 type Keys struct {
 	CryptoMsgEncKey []uint8

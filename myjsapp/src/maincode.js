@@ -259,7 +259,7 @@ async function TriggerGetMessageList(data, nummessages) {
 }
 
 async function StartSession(data) {
-    var webenc = await GetWebKey(data);
+    //var webenc = await GetWebKey(data);
 
     data.sessionid = helpers.generateUUID();
     var sendmessageid = helpers.generateUUID();

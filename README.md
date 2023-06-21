@@ -41,7 +41,7 @@ Go
 > [Install Docker](https://www.docker.com/products/docker-desktop/)
 
 ```
-cd dh-messages-api/myjsapp
+cd myjsapp
 docker compose up --build
 ```
 
@@ -50,7 +50,7 @@ docker compose up --build
 > [Install node > v15](https://nodejs.dev/en/download/)
 
 ```
-cd dh-messages-api/myjsapp
+cd myjsapp
 npm install
 node src/test.js
 ```
@@ -60,7 +60,7 @@ node src/test.js
 > [Install Docker](https://www.docker.com/products/docker-desktop/)
 
 ```
-cd dh-messages-api/mygoapp
+cd mygoapp
 docker compose up --build
 ```
 
@@ -69,7 +69,7 @@ docker compose up --build
 > [Install Go](https://go.dev/dl/)
 
 ```
-cd dh-messages-api/mygoapp/github.com/danhol86/dhmessagesapi
+cd mygoapp/github.com/danhol86/dhmessagesapi
 go mod download
 go test
 ```

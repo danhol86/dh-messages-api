@@ -28,46 +28,44 @@ Go
 * [ ] send images/attachments
 * [ ] send message to new number
 
-## Setup - Node (Docker)
+## Testing
+
+### Node (Docker)
 
 > [Install Docker](https://www.docker.com/products/docker-desktop/)
 
 ```
-git clone -b ReverseGoogleAPI https://github.com/danhol86/dh-messages-api
 cd dh-messages-api/myjsapp
 docker compose up --build
 ```
 
-## Setup - Node (Local)
+### Node (Local)
 
 > [Install node > v15](https://nodejs.dev/en/download/)
 
 ```
-git clone -b ReverseGoogleAPI https://github.com/danhol86/dh-messages-api
 cd dh-messages-api/myjsapp
 npm install
 node src/test.js
 ```
 
-## Setup - GO (Docker)
+### Go (Docker)
 
 > [Install Docker](https://www.docker.com/products/docker-desktop/)
 
 ```
-git clone -b ReverseGoogleAPI https://github.com/danhol86/dh-messages-api
 cd dh-messages-api/mygoapp
 docker compose up --build
 ```
 
-## Setup - GO (Local)
+### Go (Local)
 
 > [Install Go](https://go.dev/dl/)
 
 ```
-git clone -b ReverseGoogleAPI https://github.com/danhol86/dh-messages-api
 cd dh-messages-api/mygoapp/github.com/danhol86/dhmessagesapi
 go mod download
-go run ./main
+go test
 ```
 
 ## Testing

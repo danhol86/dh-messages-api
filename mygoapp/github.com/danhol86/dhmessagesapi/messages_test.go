@@ -3,7 +3,6 @@ package test
 import (
 	"encoding/json"
 	"fmt"
-	"os"
 	"runtime"
 	"testing"
 
@@ -15,11 +14,6 @@ func TestAllFunction(t *testing.T) {
 	rootFolder := "/data/"
 	if runtime.GOOS == "windows" {
 		rootFolder = "../../../data/"
-	}
-
-	err := os.MkdirAll(rootFolder, os.ModePerm)
-	if err != nil {
-		t.Fatalf("Failed to create folder: %s", err)
 	}
 
 	sess := &messages.SessionData{}

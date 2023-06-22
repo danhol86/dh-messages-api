@@ -1,0 +1,7 @@
+{
+    "go.gopath": "your location",
+    "files.exclude": {
+        "**/node_modules": true,
+        "**/pkg": true
+    }
+}

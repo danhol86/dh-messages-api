@@ -2,10 +2,8 @@ FROM golang:1.16
 
 WORKDIR /app
 
-COPY ./github.com/danhol86/dhmessagesapi .
+COPY . .
 
-RUN go mod download
-
-WORKDIR /app
+WORKDIR /app/src/dhmessagesapi
 
 CMD [ "go", "test" ]

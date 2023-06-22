@@ -1,0 +1,7 @@
+go 1.20
+
+use (
+	./src/dhmessagesapi
+	./src/dhmessagestest
+	./src/dhmessagesweb
+)

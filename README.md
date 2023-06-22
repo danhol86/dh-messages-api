@@ -69,7 +69,6 @@ docker compose up --build
 > [Install Go](https://go.dev/dl/)
 
 ```
-cd mygoapp/github.com/danhol86/dhmessagesapi
-go mod download
+cd mygoapp/src/dhmessagesapi
 go test
 ```

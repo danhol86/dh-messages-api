@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.30.0
 // 	protoc        v4.23.2
-// source: github.com/danhol86/dhmessagesapi/messages/protos.proto
+// source: dhmessagesapi/messages/protos.proto
 
 package messages
 

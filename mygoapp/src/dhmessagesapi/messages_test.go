@@ -6,14 +6,14 @@ import (
 	"runtime"
 	"testing"
 
-	"github.com/danhol86/dhmessagesapi/helpers"
-	"github.com/danhol86/dhmessagesapi/messages"
+	"dhmessagesapi/helpers"
+	"dhmessagesapi/messages"
 )
 
 func TestAllFunction(t *testing.T) {
 	rootFolder := "/data/"
 	if runtime.GOOS == "windows" {
-		rootFolder = "../../../data/"
+		rootFolder = "../../data/"
 	}
 
 	sess := &messages.SessionData{}

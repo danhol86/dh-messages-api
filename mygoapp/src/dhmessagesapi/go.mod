@@ -1,6 +1,11 @@
-module github.com/danhol86/dhmessagesapi
+module dhmessagesapi
 
 go 1.20
+
+require (
+	github.com/lestrrat-go/jwx v1.2.25
+	google.golang.org/protobuf v1.30.0
+)
 
 require (
 	github.com/decred/dcrd/dcrec/secp256k1/v4 v4.0.0-20210816181553-5444fa50b93d // indirect
@@ -9,10 +14,8 @@ require (
 	github.com/lestrrat-go/blackmagic v1.0.0 // indirect
 	github.com/lestrrat-go/httpcc v1.0.1 // indirect
 	github.com/lestrrat-go/iter v1.0.1 // indirect
-	github.com/lestrrat-go/jwx v1.2.25
 	github.com/lestrrat-go/option v1.0.0 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
-	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
+	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e // indirect
 	golang.org/x/crypto v0.0.0-20220427172511-eb4f295cb31f // indirect
-	google.golang.org/protobuf v1.30.0
 )

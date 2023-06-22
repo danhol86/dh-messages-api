@@ -4,8 +4,6 @@ WORKDIR /app
 
 COPY . .
 
-WORKDIR /app/dhmessagesapi
+WORKDIR /app
 
-RUN go mod tidy
-
-CMD [ "go", "test" ]
+CMD [ "go", "run", "dhmessagestest" ]

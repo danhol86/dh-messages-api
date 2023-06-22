@@ -13,7 +13,7 @@ import (
 func TestAllFunction(t *testing.T) {
 	rootFolder := "/data/"
 	if runtime.GOOS == "windows" {
-		rootFolder = "../../data/"
+		rootFolder = "../data/"
 	}
 
 	sess := &messages.SessionData{}

@@ -1,9 +1,11 @@
-FROM golang:1.16
+FROM golang:1.20
 
 WORKDIR /app
 
 COPY . .
 
-WORKDIR /app/src/dhmessagesapi
+WORKDIR /app/dhmessagesapi
+
+RUN go mod tidy
 
 CMD [ "go", "test" ]

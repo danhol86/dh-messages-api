@@ -173,9 +173,9 @@ func httpPostRecMessages(jsonData string, googleAPIKey string, callback func(str
 
 	defer gzipReader.Close()
 
-	myList := []string{}
+	ald := ""
 
-	buf := make([]byte, 100024)
+	buf := make([]byte, 1024)
 	for {
 		n, err := gzipReader.Read(buf)
 		if err != nil && err != io.EOF {
@@ -184,17 +184,11 @@ func httpPostRecMessages(jsonData string, googleAPIKey string, callback func(str
 		if n == 0 {
 			break
 		}
-		// Do something with the data
-		// In this case, we're just printing it
 
 		alld := string(buf[:n])
-		myList = append(myList, alld)
-		ald := strings.Join(myList, "")
+		ald = ald + alld
 
 		if strings.HasSuffix(ald, strings.Repeat("]", 2)) {
-
-			myList = myList[:0]
-			myList = append(myList, "[[[[]]")
 
 			newmess := ald
 
@@ -203,6 +197,8 @@ func httpPostRecMessages(jsonData string, googleAPIKey string, callback func(str
 			} else if strings.HasSuffix(ald, strings.Repeat("]", 2)) {
 				newmess = newmess + "]]"
 			}
+
+			ald = "[[[[]]"
 
 			resp, err := callback(newmess)
 

@@ -43,7 +43,33 @@ func GetNewMessages(mydata *SessionData) string {
 	return respd
 }
 
-func ProcessNewMessages(test string) (bool, error) {
+func ProcessNewMessages(jsonStr string) (bool, error) {
+
+	var data interface{}
+
+	err := json.Unmarshal([]byte(jsonStr), &data)
+	if err != nil {
+		return true, err
+	}
+
+	firstLevel := data.([]interface{})
+	secondLevel := firstLevel[0].([]interface{})
+
+	if len(secondLevel) == 2 {
+
+		myobj := secondLevel[1].([]interface{})
+
+		if len(myobj) == 2 {
+			myobj2 := myobj[1].([]interface{})
+
+			myGuid := myobj2[0].(string)
+			myProto := myobj2[11].(string)
+			fmt.Println(myGuid)
+			fmt.Println(myProto)
+		}
+
+	}
+
 	return false, nil
 }
 
@@ -56,6 +82,7 @@ func GetSendMessage(sessionid, sendmessageid string, midcode int32, mydata *Sess
 
 	resjson, err := getSendMessagesStringJSON(13, mydata.Bugle, "Bugle", sendmessageid, mydata.Pr_tachyon_auth_token, sendprotoBuff)
 	if err != nil {
+
 		fmt.Println("Error:", err)
 		return "", err
 	}

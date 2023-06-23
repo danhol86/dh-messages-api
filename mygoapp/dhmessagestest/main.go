@@ -57,7 +57,17 @@ func main() {
 
 	if err != nil {
 		fmt.Println(err)
-		return
+		sess, err = messages.GetNewSessionData()
+		helpers.SaveQRCode(sess.QrLink, rootFolder+"goQR.png")
+		sess, err = messages.WaitForUserScan(sess)
+
+		err = messages.StartSession(sess)
+		helpers.WriteJSONToFile(sessionFileLocation, sess)
+
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
 	}
 
 	messages.GetNewMessages(sess)

@@ -17,6 +17,17 @@ func ConvertProtoToUserScan(barr []byte) (resp *UserScan) {
 	return person
 }
 
+func ConvertProtoToNewMessage(barr []uint8) (resp *RESPONSE) {
+	person := &RESPONSE{}
+
+	err := proto.Unmarshal(barr, person)
+	if err != nil {
+		log.Fatal("Unmarshal error:", err)
+	}
+
+	return person
+}
+
 func ConvertProtoToResponse(barr []uint8) (resp *PRRecieve) {
 	person := &PRRecieve{}
 

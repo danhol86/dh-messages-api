@@ -66,6 +66,15 @@ func ProcessNewMessages(jsonStr string) (bool, error) {
 			myProto := myobj2[11].(string)
 			fmt.Println(myGuid)
 			fmt.Println(myProto)
+
+			processedMessageB, err := base64.StdEncoding.DecodeString(myProto)
+			if err != nil {
+				return true, err
+			}
+
+			processedMessage := ConvertProtoToNewMessage(processedMessageB)
+
+			fmt.Println(processedMessage)
 		}
 
 	}

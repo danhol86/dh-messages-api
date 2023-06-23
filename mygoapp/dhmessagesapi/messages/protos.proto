@@ -2,13 +2,21 @@ syntax = "proto3";
 
 package messages;
 
-option go_package = "dhmessagesapi";
+option go_package = "dhmessagesapi/messages";
 
 message SENDMESSAGE {
     string id1 = 1;
     int32 p2 = 2;
     bytes message = 5;
     string id2 = 6;
+}
+
+message RESPONSE {
+    string uid = 1;
+    int32 rcode = 4;
+    int32 rcode2 = 6;
+    int32 rcode3 = 7;
+    bytes message = 8;
 }
 
 message PRCreate {

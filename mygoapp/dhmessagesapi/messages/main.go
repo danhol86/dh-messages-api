@@ -34,7 +34,7 @@ func GetNewMessages(mydata *SessionData) string {
 	}
 
 	var respstring = getRecMessagesStringJSON(reqid, mydata.Pr_tachyon_auth_token)
-	respd, err := httpPostRecMessages(respstring, mydata.GoogleApi, ProcessNewMessages)
+	respd, err := httpPostRecMessages(respstring, mydata.GoogleApi, mydata, ProcessNewMessages)
 
 	if err != nil {
 		fmt.Println("Error ", err)
@@ -43,7 +43,7 @@ func GetNewMessages(mydata *SessionData) string {
 	return respd
 }
 
-func ProcessNewMessages(jsonStr string) (bool, error) {
+func ProcessNewMessages(jsonStr string, mydata *SessionData) (bool, error) {
 
 	var data interface{}
 
@@ -64,8 +64,8 @@ func ProcessNewMessages(jsonStr string) (bool, error) {
 
 			myGuid := myobj2[0].(string)
 			myProto := myobj2[11].(string)
-			fmt.Println(myGuid)
-			fmt.Println(myProto)
+
+			_, err := GetAckMessages(myGuid, mydata)
 
 			processedMessageB, err := base64.StdEncoding.DecodeString(myProto)
 			if err != nil {
@@ -80,6 +80,25 @@ func ProcessNewMessages(jsonStr string) (bool, error) {
 	}
 
 	return false, nil
+}
+
+func GetAckMessages(guids string, mydata *SessionData) (string, error) {
+	sendmessageid, err := generateUUID()
+	if err != nil {
+		return "", err
+	}
+
+	var strList []string
+	strList = append(strList, guids)
+
+	ackmessage, err := getAckMessagesStringJSON(sendmessageid, strList, mydata.Pr_tachyon_auth_token)
+	httprespack, err := httpPostAckMessages("/$rpc/google.internal.communications.instantmessaging.v1.Messaging/AckMessages", ackmessage, mydata.GoogleApi)
+
+	if err != nil {
+		return "", err
+	}
+
+	return httprespack, nil
 }
 
 func GetSendMessage(sessionid, sendmessageid string, midcode int32, mydata *SessionData, message []byte) (string, error) {
@@ -255,7 +274,7 @@ func WaitForUserScan(sess *SessionData) (*SessionData, error) {
 
 	fmt.Println("Waiting for QR Scanned")
 
-	pr, err := httpPostRecMessages(recJson, sess.GoogleApi, proc)
+	pr, err := httpPostRecMessages(recJson, sess.GoogleApi, sess, proc)
 	if err != nil {
 		return nil, err
 	}
@@ -283,7 +302,7 @@ func WaitForUserScan(sess *SessionData) (*SessionData, error) {
 	return sess, nil
 }
 
-func proc(test string) (bool, error) {
+func proc(test string, sess *SessionData) (bool, error) {
 	id, _, err := ProcessString(test)
 
 	if err != nil {

@@ -132,7 +132,7 @@ func httpPostPhoneRelay(data []byte, googleapi string) ([]byte, error) {
 	}
 }
 
-func httpPostRecMessages(jsonData string, googleAPIKey string, callback func(string) (bool, error)) (string, error) {
+func httpPostRecMessages(jsonData string, googleAPIKey string, mydata *SessionData, callback func(string, *SessionData) (bool, error)) (string, error) {
 	client := &http.Client{}
 
 	req, err := http.NewRequest("POST", "https://instantmessaging-pa.googleapis.com/$rpc/google.internal.communications.instantmessaging.v1.Messaging/ReceiveMessages", bytes.NewBufferString(jsonData))
@@ -200,7 +200,7 @@ func httpPostRecMessages(jsonData string, googleAPIKey string, callback func(str
 
 			ald = "[[[[]]"
 
-			resp, err := callback(newmess)
+			resp, err := callback(newmess, mydata)
 
 			if err != nil && err != io.EOF {
 				return "", err

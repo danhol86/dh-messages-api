@@ -24,6 +24,32 @@ func getRecMessagesStringJSON(reqid string, b64 string) string {
 	return string(jsonData)
 }
 
+func getAckMessagesStringJSON(newguid string, guids []string, n64 string) (string, error) {
+	dateObj := []interface{}{nil, nil, 2021, 2, 15, nil, 4, nil, 6}
+
+	resjson := []interface{}{
+		[]interface{}{
+			newguid,
+			nil,
+			nil,
+			nil,
+			nil,
+			n64,
+			dateObj,
+		},
+		guids,
+		nil,
+		[]interface{}{},
+	}
+
+	jsonData, err := json.Marshal(resjson)
+	if err != nil {
+		return "", err
+	}
+
+	return string(jsonData), nil
+}
+
 func GetRefreshTokenJSON(guid, oldtachyon string, BugleId int32, BugleNum string, Bugle string, unixtimestamp int64, signedcode interface{}) []interface{} {
 
 	bugleobj := []interface{}{BugleId, BugleNum, Bugle}

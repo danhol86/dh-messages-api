@@ -206,6 +206,7 @@ async function DeCryptMessage2(message, crypto_msg_enc_key) {
 
     var c;
 
+    
     if (48 > a.length)
         throw new RangeError("hc");
     if (null != c)
@@ -225,6 +226,8 @@ async function DeCryptMessage2(message, crypto_msg_enc_key) {
     }, key, c);
     return new Uint8Array(d)
 }
+
+
 
 
 module.exports = {

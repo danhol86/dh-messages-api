@@ -1,12 +1,15 @@
 package messages
 
 import (
+	"crypto/aes"
+	"crypto/cipher"
 	"crypto/ecdsa"
 	"crypto/elliptic"
 	"crypto/rand"
 	"crypto/sha256"
 	"encoding/base64"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"log"
 	"math/big"
@@ -269,4 +272,29 @@ func GetKeys() (*Keys, error) {
 		CryptoMsgHmac:   cryptoMsgHmac,
 		ECDSAKeys:       ecdsaKeys,
 	}, nil
+}
+
+func DeCryptMessage2(message []byte, crypto_msg_enc_key []byte) ([]byte, error) {
+	if len(message) < 48 {
+		return nil, errors.New("hc")
+	}
+
+	block, err := aes.NewCipher(crypto_msg_enc_key)
+	if err != nil {
+		return nil, err
+	}
+
+	c := message[:len(message)-32]
+	a := message[len(c):]
+	iv := c[len(c)-16:]
+	c = c[:len(c)-16]
+
+	b := make([]byte, 16)
+	copy(b, a)
+
+	stream := cipher.NewCTR(block, iv)
+	decrypted := make([]byte, len(c))
+	stream.XORKeyStream(decrypted, c)
+
+	return decrypted, nil
 }

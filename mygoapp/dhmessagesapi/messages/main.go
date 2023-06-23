@@ -85,8 +85,13 @@ func ProcessNewMessages(jsonStr string, mydata *SessionData) (bool, error) {
 			}
 
 			processedMessage := ConvertProtoToNewMessage(processedMessageB)
-
 			fmt.Println(processedMessage)
+
+			dec, err := DeCryptMessage2(processedMessage.Message, mydata.CryptoMsgEncKey)
+
+			decb64 := base64.StdEncoding.EncodeToString(dec)
+			fmt.Println(decb64)
+
 		}
 
 	}

@@ -3,7 +3,6 @@ package messages
 import (
 	"bytes"
 	"compress/gzip"
-	"fmt"
 	"io"
 	"net/http"
 	"strings"
@@ -162,9 +161,6 @@ func httpPostRecMessages(jsonData string, googleAPIKey string, mydata *SessionDa
 		return "", err
 	}
 	defer resp.Body.Close()
-
-	mycont := resp.Header.Get("Content-Encoding")
-	fmt.Println("header:", mycont)
 
 	gzipReader, err := gzip.NewReader(resp.Body)
 	if err != nil {

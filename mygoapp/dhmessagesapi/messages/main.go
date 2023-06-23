@@ -3,28 +3,40 @@ package messages
 import (
 	"encoding/base64"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"strconv"
+	"strings"
 	"time"
 )
 
-func StartSession(mydata *SessionData) {
+func StartSession(mydata *SessionData) error {
 
 	sessionid, err := generateUUID()
-
 	mydata.SessionId = sessionid
-
 	sendmessageid, err := generateUUID()
 
 	getsm1, err := GetSendMessage(mydata.SessionId, sendmessageid, 13, mydata, make([]byte, 0))
+
+	if err != nil {
+		return err
+	}
+
+	if strings.Contains(strings.ToLower(getsm1), "error") {
+		return errors.New(getsm1)
+	}
+
 	getsm2, err := GetSendMessage(mydata.SessionId, mydata.SessionId, 16, mydata, make([]byte, 0))
 
 	if err != nil {
-		fmt.Println("Error ", err)
+		return err
 	}
 
-	fmt.Println(getsm1)
-	fmt.Println(getsm2)
+	if strings.Contains(strings.ToLower(getsm1), "error") {
+		return errors.New(getsm2)
+	}
+
+	return nil
 }
 
 func GetNewMessages(mydata *SessionData) string {
@@ -106,8 +118,6 @@ func GetSendMessage(sessionid, sendmessageid string, midcode int32, mydata *Sess
 
 	sendprotoBuff := base64.StdEncoding.EncodeToString(sendproto)
 
-	fmt.Println(sendprotoBuff)
-
 	resjson, err := getSendMessagesStringJSON(13, mydata.Bugle, "Bugle", sendmessageid, mydata.Pr_tachyon_auth_token, sendprotoBuff)
 	if err != nil {
 
@@ -116,10 +126,6 @@ func GetSendMessage(sessionid, sendmessageid string, midcode int32, mydata *Sess
 	}
 
 	httprespack, err := httpPostAckMessages("/$rpc/google.internal.communications.instantmessaging.v1.Messaging/SendMessage", resjson, mydata.GoogleApi)
-	if err != nil {
-		fmt.Println("Error:", err)
-		return "", err
-	}
 
 	return httprespack, nil
 }

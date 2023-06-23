@@ -53,7 +53,12 @@ func main() {
 	fmt.Println("Updating session file")
 	helpers.WriteJSONToFile(sessionFileLocation, sess)
 
-	messages.StartSession(sess)
+	err := messages.StartSession(sess)
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 
 	messages.GetNewMessages(sess)
 }

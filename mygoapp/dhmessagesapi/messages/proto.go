@@ -6,6 +6,17 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
+func ConvertProtoToUpdateMessage(barr []byte) (resp *UpdateMessage) {
+	person := &UpdateMessage{}
+
+	err := proto.Unmarshal(barr, person)
+	if err != nil {
+		log.Fatal("Unmarshal error:", err)
+	}
+
+	return person
+}
+
 func ConvertProtoToUserScan(barr []byte) (resp *UserScan) {
 	person := &UserScan{}
 

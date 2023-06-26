@@ -92,6 +92,11 @@ func ProcessNewMessages(jsonStr string, mydata *SessionData) (bool, error) {
 			decb64 := base64.StdEncoding.EncodeToString(dec)
 			fmt.Println(decb64)
 
+			if processedMessage.Rcode == 16 {
+				upm := ConvertProtoToUpdateMessage(dec)
+				fmt.Println(upm)
+			}
+
 		}
 
 	}

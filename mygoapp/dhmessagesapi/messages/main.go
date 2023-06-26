@@ -94,7 +94,11 @@ func ProcessNewMessages(jsonStr string, mydata *SessionData) (bool, error) {
 
 			if processedMessage.Rcode == 16 {
 				upm := ConvertProtoToUpdateMessage(dec)
-				fmt.Println(upm)
+				for _, s := range upm.Updates {
+					for j, s := range s.Items {
+						fmt.Println(j, s.Content.MessageValue)
+					}
+				}
 			}
 
 		}

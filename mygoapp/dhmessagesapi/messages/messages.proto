@@ -36,7 +36,7 @@ message MyMessage {
 }
 
 message UpdateMessage {
-  repeated Item items = 2;
+  repeated MyMessage items = 2;
   repeated MyMessage updates = 3;
   ConnectionUpdate update = 6;
 }

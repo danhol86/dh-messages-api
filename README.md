@@ -21,8 +21,8 @@ Go
 * [x] extract QR code image
 * [x] refresh token
 * [ ] read incoming messages
-* [ ] read messages for contact
-* [ ] send message to existing contact
+* [x] read messages for contact
+* [x] send message to existing contact
 * [ ] download images
 * [ ] download attachments
 * [ ] send images/attachments
